@@ -78,6 +78,10 @@ namespace OpenTabletDriver.Native.Windows.PenPointer
 
         public void SetPosition(POINT pixelPoint, POINT subpixelPoint)
         {
+            NativeMethods.GetPointerDeviceRects(_penHandle, out var pointerDeviceRect, out var displayRect);
+            Console.WriteLine(pointerDeviceRect.left.ToString() + " " + pointerDeviceRect.bottom.ToString() + " " + pointerDeviceRect.right.ToString() + " " + pointerDeviceRect.top.ToString());
+            Console.WriteLine(displayRect.left.ToString() + " " + displayRect.bottom.ToString() + " " + displayRect.right.ToString() + " " + displayRect.top.ToString());
+
             pointer![0].penInfo.pointerInfo.ptPixelLocation = pixelPoint;
             pointer[0].penInfo.pointerInfo.ptPixelLocationRaw = pixelPoint;
             pointer![0].penInfo.pointerInfo.ptHimetricLocation = subpixelPoint;

@@ -430,6 +430,10 @@ namespace OpenTabletDriver.Native.Windows.PenPointer
         public static unsafe extern bool GetPointerDevices(out uint deviceCount, [In, Out, MarshalAs(UnmanagedType.LPArray), AllowNull] POINTER_DEVICE_INFO[] pointerDevices);
 
         [DllImport("user32.dll", SetLastError = true, CallingConvention = CallingConvention.StdCall)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static unsafe extern bool GetPointerDeviceRects(IntPtr device, out Rect pointerDeviceRect, out Rect displayRect);
+
+        [DllImport("user32.dll", SetLastError = true, CallingConvention = CallingConvention.StdCall)]
         public static extern IntPtr GetForegroundWindow();
     }
 }
