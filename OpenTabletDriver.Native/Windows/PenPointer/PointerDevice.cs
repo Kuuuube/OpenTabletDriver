@@ -20,6 +20,8 @@ namespace OpenTabletDriver.Native.Windows.PenPointer
                 sourceDevice = new IntPtr(),
                 ptPixelLocation = new POINT(),
                 ptPixelLocationRaw = new POINT(),
+                ptHimetricLocation = new POINT(),
+                ptHimetricLocationRaw = new POINT(),
                 dwTime = 0,
                 historyCount = 0,
                 dwKeyStates = 0,
@@ -74,10 +76,12 @@ namespace OpenTabletDriver.Native.Windows.PenPointer
             pointer![0].penInfo.pointerInfo.hwndTarget = NativeMethods.GetForegroundWindow();
         }
 
-        public void SetPosition(POINT point)
+        public void SetPosition(POINT pixelPoint, POINT subpixelPoint)
         {
-            pointer![0].penInfo.pointerInfo.ptPixelLocation = point;
-            pointer[0].penInfo.pointerInfo.ptPixelLocationRaw = point;
+            pointer![0].penInfo.pointerInfo.ptPixelLocation = pixelPoint;
+            pointer[0].penInfo.pointerInfo.ptPixelLocationRaw = pixelPoint;
+            pointer![0].penInfo.pointerInfo.ptHimetricLocation = subpixelPoint;
+            pointer[0].penInfo.pointerInfo.ptHimetricLocationRaw = subpixelPoint;
         }
 
         public void SetPressure(uint pressure)
