@@ -7,6 +7,7 @@ namespace OpenTabletDriver.Native.Windows.PenPointer
     public class PointerDevice
     {
         private readonly IntPtr _penHandle;
+        private readonly IntPtr _sourceDevice;
         private readonly POINTER_TYPE_INFO[] pointer;
 
         public unsafe PointerDevice()
@@ -17,7 +18,7 @@ namespace OpenTabletDriver.Native.Windows.PenPointer
                 pointerId = 1,
                 frameId = 0,
                 pointerFlags = POINTER_FLAGS.NONE,
-                sourceDevice = new IntPtr(),
+                sourceDevice = _sourceDevice,
                 ptPixelLocation = new POINT(),
                 ptPixelLocationRaw = new POINT(),
                 ptHimetricLocation = new POINT(),
@@ -50,7 +51,7 @@ namespace OpenTabletDriver.Native.Windows.PenPointer
             };
 
             // Retrieve handle to custom pen
-            _penHandle = NativeMethods.CreateSyntheticPointerDevice(POINTER_INPUT_TYPE.PT_PEN, 1, POINTER_FEEDBACK_MODE.INDIRECT);
+            _penHandle = NativeMethods.CreateSyntheticPointerDevice(POINTER_INPUT_TYPE.PT_PEN, 1, POINTER_FEEDBACK_MODE.DEFAULT);
             var err = Marshal.GetLastWin32Error();
             if (err < 0 || _penHandle == IntPtr.Zero)
                 throw new Exception("Failed to create handle.");
@@ -76,11 +77,17 @@ namespace OpenTabletDriver.Native.Windows.PenPointer
             pointer![0].penInfo.pointerInfo.hwndTarget = NativeMethods.GetForegroundWindow();
         }
 
-        public void SetPosition(POINT pixelPoint, POINT subpixelPoint)
+        public unsafe void SetPosition(POINT pixelPoint, POINT subpixelPoint)
         {
-            NativeMethods.GetPointerDeviceRects(_penHandle, out var pointerDeviceRect, out var displayRect);
-            Console.WriteLine(pointerDeviceRect.left.ToString() + " " + pointerDeviceRect.bottom.ToString() + " " + pointerDeviceRect.right.ToString() + " " + pointerDeviceRect.top.ToString());
-            Console.WriteLine(displayRect.left.ToString() + " " + displayRect.bottom.ToString() + " " + displayRect.right.ToString() + " " + displayRect.top.ToString());
+            // POINTER_DEVICE_INFO[] pointerDevices = [];
+            // NativeMethods.GetPointerDevices(out var deviceCount, pointerDevices);
+            // Console.WriteLine(deviceCount.ToString());
+            // foreach (var device in pointerDevices)
+            // {
+            // NativeMethods.GetPointerDeviceRects(_sourceDevice, out var pointerDeviceRect, out var displayRect);
+            // Console.WriteLine(pointerDeviceRect.left.ToString() + " " + pointerDeviceRect.bottom.ToString() + " " + pointerDeviceRect.right.ToString() + " " + pointerDeviceRect.top.ToString());
+            // Console.WriteLine(displayRect.left.ToString() + " " + displayRect.bottom.ToString() + " " + displayRect.right.ToString() + " " + displayRect.top.ToString());
+            // }
 
             pointer![0].penInfo.pointerInfo.ptPixelLocation = pixelPoint;
             pointer[0].penInfo.pointerInfo.ptPixelLocationRaw = pixelPoint;

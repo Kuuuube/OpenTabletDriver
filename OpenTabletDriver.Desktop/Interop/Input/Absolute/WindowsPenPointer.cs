@@ -12,7 +12,7 @@ namespace OpenTabletDriver.Desktop.Interop.Input.Absolute
         private bool _lastContact;
         private bool _dirty;
         private bool _eraser = false;
-        private static Vector2 ScreenToVirtualDesktop = new Vector2(DesktopInterop.VirtualScreen.Width, DesktopInterop.VirtualScreen.Height) / 65535;
+        private static Vector2 ScreenToVirtualDesktop = new Vector2(DesktopInterop.VirtualScreen.Width, DesktopInterop.VirtualScreen.Height) / new Vector2(50800, 26352);
 
         public WindowsPenPointer()
         {
@@ -42,6 +42,11 @@ namespace OpenTabletDriver.Desktop.Interop.Input.Absolute
             var pixelPoint = new POINT((int)Math.Round(pos.X), (int)Math.Round(pos.Y));
             var virtualDesktopCoords = pos / ScreenToVirtualDesktop;
             var subpixelPoint = new POINT((int)Math.Round(virtualDesktopCoords.X), (int)Math.Round(virtualDesktopCoords.Y));
+            // AtlPixelToHiMetric();
+            Console.WriteLine(ScreenToVirtualDesktop.X.ToString(), ScreenToVirtualDesktop.Y.ToString());
+            Console.WriteLine(pixelPoint.X.ToString(), pixelPoint.Y.ToString());
+            Console.WriteLine(subpixelPoint.X.ToString(), subpixelPoint.Y.ToString());
+            Console.WriteLine("--------");
             _pointerDevice.SetPosition(pixelPoint, subpixelPoint);
             if (_inContact != _lastContact)
             {
