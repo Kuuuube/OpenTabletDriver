@@ -17,10 +17,22 @@ namespace OpenTabletDriver.Desktop.Interop.Display
         {
             try
             {
-                SetProcessDpiAwareness(2);
-                Log.Debug("Display", "DPI Awareness enabled");
+                var dpiAwareness = SetProcessDpiAwareness(2);
+                IntPtr monitorV2 = new IntPtr(-4);
+                var dpiAwarenessThead = SetThreadDpiAwarenessContext(monitorV2);
+                Log.Debug("Display", $"DPI Awareness enabled {dpiAwareness} {dpiAwarenessThead}");
             }
             catch { }
+            var dpiCheck = GetThreadDpiAwarenessContext();
+            if (dpiCheck == 34)
+            {
+                // DPI_AWARENESS_CONTEXT_UNAWARE = 16,
+                // DPI_AWARENESS_CONTEXT_SYSTEM_AWARE = 17,
+                // DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE = 18,
+                // DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = 34
+                Console.WriteLine("Found DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2");
+            }
+            Log.Debug("Display", $"DPI AWARENESS CHECK: {GetThreadDpiAwarenessContext()}");
 
             var monitors = GetDisplays();
             var primary = monitors.FirstOrDefault(m => m.IsPrimary);

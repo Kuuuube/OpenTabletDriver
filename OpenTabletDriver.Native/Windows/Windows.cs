@@ -28,6 +28,20 @@ namespace OpenTabletDriver.Native.Windows
         [DllImport("Shcore.dll")]
         public static extern int SetProcessDpiAwareness(int awareness);
 
+        [DllImport("user32.dll")]
+        public static extern bool SetProcessDpiAwarenessContext(IntPtr dpiAwarenessContext);
+
+        public static readonly IntPtr DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = new IntPtr(-4);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetThreadDpiAwarenessContext();
+
+        [DllImport("user32.dll")]
+        public static extern int GetAwarenessFromDpiAwarenessContext(IntPtr dpiContext);
+
+        [DllImport("User32.dll")]
+        public static extern IntPtr SetThreadDpiAwarenessContext(IntPtr threadAwareness);
+
         #endregion
 
         #region Input
