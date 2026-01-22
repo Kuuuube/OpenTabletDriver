@@ -69,74 +69,71 @@ namespace OpenTabletDriver.UX.Windows.Plugins
             installButton.TextBinding.Bind(updateableBinding.Convert(c => c ? "Update" : "Install"));
             installButton.GetEnabledBinding().Bind(installableBinding);
 
-            content = new Scrollable
+            content = new StackLayout
             {
-                Content = new StackLayout
+                Padding = 5,
+                Spacing = 5,
+                HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                Items =
                 {
-                    Padding = 5,
-                    Spacing = 5,
-                    HorizontalContentAlignment = HorizontalAlignment.Stretch,
-                    Items =
+                    new AlignedGroup
                     {
-                        new AlignedGroup
+                        Text = "Name",
+                        Content = name = new Label()
+                    },
+                    new AlignedGroup
+                    {
+                        Text = "Owner",
+                        Content = owner = new Label()
+                    },
+                    new AlignedGroup
+                    {
+                        Text = "Description",
+                        Content = description = new Label
                         {
-                            Text = "Name",
-                            Content = name = new Label()
-                        },
-                        new AlignedGroup
+                            Wrap = WrapMode.Word
+                        }
+                    },
+                    new AlignedGroup
+                    {
+                        Text = "Driver Version",
+                        Content = driverVersion = new Label()
+                    },
+                    new AlignedGroup
+                    {
+                        Text = "Max Supported Driver Version",
+                        Content = maxDriverVersion = new Label()
+                    },
+                    new AlignedGroup
+                    {
+                        Text = "Plugin Version",
+                        Content = pluginVersion = new Label()
+                    },
+                    new AlignedGroup
+                    {
+                        Text = "Source Code Repository",
+                        Content = sourceCode = new Button
                         {
-                            Text = "Owner",
-                            Content = owner = new Label()
-                        },
-                        new AlignedGroup
+                            Width = 175,
+                            Text = "Show source code"
+                        }
+                    },
+                    new AlignedGroup
+                    {
+                        Text = "Wiki",
+                        Content = wiki = new Button
                         {
-                            Text = "Description",
-                            Content = description = new Label
-                            {
-                                Wrap = WrapMode.Word
-                            }
-                        },
-                        new AlignedGroup
-                        {
-                            Text = "Driver Version",
-                            Content = driverVersion = new Label()
-                        },
-                        new AlignedGroup
-                        {
-                            Text = "Max Supported Driver Version",
-                            Content = maxDriverVersion = new Label()
-                        },
-                        new AlignedGroup
-                        {
-                            Text = "Plugin Version",
-                            Content = pluginVersion = new Label()
-                        },
-                        new AlignedGroup
-                        {
-                            Text = "Source Code Repository",
-                            Content = sourceCode = new Button
-                            {
-                                Width = 175,
-                                Text = "Show source code"
-                            }
-                        },
-                        new AlignedGroup
-                        {
-                            Text = "Wiki",
-                            Content = wiki = new Button
-                            {
-                                Width = 175,
-                                Text = "Show plugin wiki"
-                            }
-                        },
-                        new AlignedGroup
-                        {
-                            Text = "License",
-                            Content = license = new Label()
-                        },
-                        new StackLayoutItem(null, true),
-                        actions
-                    }
+                            Width = 175,
+                            Text = "Show plugin wiki"
+                        }
+                    },
+                    new AlignedGroup
+                    {
+                        Text = "License",
+                        Content = license = new Label()
+                    },
+                    new StackLayoutItem(null, true),
+                    actions
                 }
             };
 
