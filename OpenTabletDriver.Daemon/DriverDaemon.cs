@@ -714,6 +714,7 @@ namespace OpenTabletDriver.Daemon
                         {
                             var state = Native.Windows.Windows.PowerThrottlingState.Create();
                             state.ControlMask = (int)Native.Windows.Windows.PowerThrottlingStateMask.IgnoreTimerResolution;
+                            state.StateMask = 0; // disable EcoQoS
 
                             if (!Native.Windows.Windows.SetProcessInformation(
                                 Process.GetCurrentProcess().Handle,
