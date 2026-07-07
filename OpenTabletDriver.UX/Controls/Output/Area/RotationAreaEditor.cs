@@ -9,7 +9,8 @@ namespace OpenTabletDriver.UX.Controls.Output.Area
     {
         public RotationAreaEditor()
         {
-            settingsPanel.Items.Add(
+            settingsPanel.Items.Insert(
+                settingsPanel.Items.Count - 1, // offset for `...` button
                 new StackLayoutItem
                 {
                     Control = new UnitGroup

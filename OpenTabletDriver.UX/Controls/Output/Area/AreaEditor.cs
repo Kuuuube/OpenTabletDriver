@@ -83,6 +83,17 @@ namespace OpenTabletDriver.UX.Controls.Output.Area
                                         Orientation = Orientation.Horizontal,
                                         Content = y = new FloatNumberBox()
                                     }
+                                },
+                                new StackLayoutItem
+                                {
+                                    Control = contextMenuButtonGroup = new UnitGroup
+                                    {
+                                        Orientation = Orientation.Horizontal,
+                                        Content = contextMenuButtonLabel = new Label()
+                                        {
+                                            Text = "..."
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -118,6 +129,23 @@ namespace OpenTabletDriver.UX.Controls.Output.Area
             Display.AreaBoundsBinding.Bind(AreaBoundsBinding);
             Display.FullAreaBoundsBinding.Bind(FullAreaBoundsBinding);
             Display.InvalidForegroundErrorBinding.Bind(InvalidForegroundErrorBinding);
+
+            contextMenuButtonGroup.MouseDown += (_, _) =>
+            {
+                this.ContextMenu.Show(this);
+            };
+
+            var contextMenuButtonLabelDefaultTextColor = contextMenuButtonLabel.TextColor;
+            contextMenuButtonGroup.MouseEnter += (_, _) =>
+            {
+                contextMenuButtonLabel.TextColor = SystemColors.HighlightText;
+                contextMenuButtonLabel.Font = SystemFonts.Bold();
+            };
+            contextMenuButtonGroup.MouseLeave += (_, _) =>
+            {
+                contextMenuButtonLabel.TextColor = contextMenuButtonLabelDefaultTextColor;
+                contextMenuButtonLabel.Font = SystemFonts.Default();
+            };
         }
 
         private BooleanCommand lockToUsableArea = new BooleanCommand
@@ -125,7 +153,8 @@ namespace OpenTabletDriver.UX.Controls.Output.Area
             MenuText = "Lock to usable area"
         };
 
-        private UnitGroup widthGroup, heightGroup, xGroup, yGroup;
+        private UnitGroup widthGroup, heightGroup, xGroup, yGroup, contextMenuButtonGroup;
+        private Label contextMenuButtonLabel;
         private MaskedTextBox<float> width, height, x, y;
 
         protected StackLayout settingsPanel;
