@@ -77,6 +77,7 @@ namespace OpenTabletDriver.UX.Windows.Plugins
                     Padding = 5,
                     Spacing = 5,
                     HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                    Width = 1, // forces HorizontalAlignment.Stretch to start at 1 instead of the default size which eliminates the Scrollable's horizontal scrollbar
                     Items =
                     {
                         new AlignedGroup
