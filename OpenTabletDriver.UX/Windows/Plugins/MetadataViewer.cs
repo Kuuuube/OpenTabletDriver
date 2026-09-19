@@ -100,7 +100,8 @@ namespace OpenTabletDriver.UX.Windows.Plugins
                             Text = "Description",
                             Content = description = new Label
                             {
-                                Wrap = WrapMode.Word
+                                Wrap = WrapMode.Word,
+                                Width = 500, // width is required on windows or wrapping will not work
                             }
                         },
                         new AlignedGroup
