@@ -33,7 +33,7 @@ namespace OpenTabletDriver.UX.Controls
                 }
             };
 
-            mainButton.TextBinding.Bind(this.StoreBinding.Convert<string?>(s => s?.GetHumanReadableString()));
+            mainButton.TextBinding.Bind(this.StoreBinding.Convert<string?>(s => GetElidedHumanReadableString(s)));
 
             mainButton.Click += async (sender, e) =>
             {
@@ -46,6 +46,18 @@ namespace OpenTabletDriver.UX.Controls
                 var dialog = new AdvancedBindingEditorDialog(Store);
                 this.Store = await dialog.ShowModalAsync(this);
             };
+        }
+
+        private string GetElidedHumanReadableString(PluginSettingStore? pluginSettingStore)
+        {
+            if (pluginSettingStore == null)
+                return "";
+
+            var baseString = pluginSettingStore.GetHumanReadableString();
+            var maxLength = Math.Min(baseString.Length, 100);
+            if (maxLength < baseString.Length)
+                return baseString[..maxLength] + "...";
+            return baseString[..maxLength];
         }
 
         private Button mainButton, advancedButton;
