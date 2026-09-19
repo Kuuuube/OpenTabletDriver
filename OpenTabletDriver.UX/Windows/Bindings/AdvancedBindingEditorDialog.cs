@@ -38,6 +38,7 @@ namespace OpenTabletDriver.UX.Windows.Bindings
                                 },
                                 new Scrollable
                                 {
+                                    Border = BorderType.None,
                                     Content = new StackLayout
                                     {
                                         HorizontalContentAlignment = HorizontalAlignment.Stretch,
