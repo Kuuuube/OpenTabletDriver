@@ -36,7 +36,18 @@ namespace OpenTabletDriver.UX.Windows.Bindings
                                     Text = "Type",
                                     Content = bindingTypeDropDown = new TypeDropDown<IBinding>()
                                 },
-                                settingStoreEditor
+                                new Scrollable
+                                {
+                                    Content = new StackLayout
+                                    {
+                                        HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                                        Width = 1, // forces HorizontalAlignment.Stretch to start at 1 instead of the default size which eliminates the Scrollable's horizontal scrollbar
+                                        Items =
+                                        {
+                                            settingStoreEditor,
+                                        }
+                                    },
+                                }
                             }
                         }
                     },
