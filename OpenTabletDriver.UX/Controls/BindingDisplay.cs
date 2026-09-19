@@ -48,7 +48,7 @@ namespace OpenTabletDriver.UX.Controls
             };
         }
 
-        private string GetElidedHumanReadableString(PluginSettingStore? pluginSettingStore)
+        private static string GetElidedHumanReadableString(PluginSettingStore? pluginSettingStore)
         {
             if (pluginSettingStore == null)
                 return "";
