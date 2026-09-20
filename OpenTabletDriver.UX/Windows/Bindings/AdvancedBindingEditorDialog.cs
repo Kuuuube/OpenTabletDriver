@@ -19,36 +19,24 @@ namespace OpenTabletDriver.UX.Windows.Bindings
             this.Content = new StackLayout
             {
                 HorizontalContentAlignment = HorizontalAlignment.Stretch,
-                Width = 500,
-                Height = 450,
                 Items =
                 {
-                    new StackLayoutItem
+                    new Group
                     {
-                        Expand = true,
-                        Control = new StackLayout
+                        Text = "Type",
+                        Content = bindingTypeDropDown = new TypeDropDown<IBinding>()
+                    },
+                    new Scrollable
+                    {
+                        Border = BorderType.None,
+                        Size = new Eto.Drawing.Size(500, 350),
+                        Content = new StackLayout
                         {
                             HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                            Width = 1, // forces HorizontalAlignment.Stretch to start at 1 instead of the default size which eliminates the Scrollable's horizontal scrollbar
                             Items =
                             {
-                                new Group
-                                {
-                                    Text = "Type",
-                                    Content = bindingTypeDropDown = new TypeDropDown<IBinding>()
-                                },
-                                new Scrollable
-                                {
-                                    Border = BorderType.None,
-                                    Content = new StackLayout
-                                    {
-                                        HorizontalContentAlignment = HorizontalAlignment.Stretch,
-                                        Width = 1, // forces HorizontalAlignment.Stretch to start at 1 instead of the default size which eliminates the Scrollable's horizontal scrollbar
-                                        Items =
-                                        {
-                                            settingStoreEditor,
-                                        }
-                                    },
-                                }
+                                settingStoreEditor,
                             }
                         }
                     },
