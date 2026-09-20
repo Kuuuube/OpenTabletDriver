@@ -28,6 +28,7 @@ namespace OpenTabletDriver.UX.Windows.Bindings
                     },
                     new Scrollable
                     {
+                        Padding = 5,
                         Border = BorderType.None,
                         Size = new Eto.Drawing.Size(500, 350),
                         Content = new StackLayout
@@ -44,6 +45,7 @@ namespace OpenTabletDriver.UX.Windows.Bindings
                     {
                         Control = new StackLayout
                         {
+                            Padding = 5,
                             Orientation = Orientation.Horizontal,
                             Spacing = 5,
                             Items =
