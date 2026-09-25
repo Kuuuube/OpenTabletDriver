@@ -152,6 +152,15 @@ namespace OpenTabletDriver.Desktop.Reflection
             return name + suffix;
         }
 
+        public string GetElidedHumanReadableString(int elideAt)
+        {
+            var baseString = this.GetHumanReadableString();
+            var maxLength = Math.Min(baseString.Length, elideAt);
+            if (maxLength < baseString.Length)
+                return baseString[..maxLength] + "...";
+            return baseString[..maxLength];
+        }
+
         public TypeInfo? GetTypeInfo()
         {
             return AppInfo.PluginManager.PluginTypes.FirstOrDefault(t => t.FullName == Path);
