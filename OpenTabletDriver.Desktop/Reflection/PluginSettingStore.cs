@@ -155,10 +155,9 @@ namespace OpenTabletDriver.Desktop.Reflection
         public string GetElidedHumanReadableString(int elideAt)
         {
             var baseString = this.GetHumanReadableString();
-            var maxLength = Math.Min(baseString.Length, elideAt);
-            if (maxLength < baseString.Length)
-                return baseString[..maxLength] + "...";
-            return baseString[..maxLength];
+            if (baseString.Length > elideAt)
+                return baseString[..elideAt] + "...";
+            return baseString;
         }
 
         public TypeInfo? GetTypeInfo()
