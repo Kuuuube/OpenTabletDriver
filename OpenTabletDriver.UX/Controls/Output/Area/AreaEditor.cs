@@ -160,7 +160,7 @@ namespace OpenTabletDriver.UX.Controls.Output.Area
         public Vector2 GetAreaCenterOffset()
         {
             Debug.Assert(Area != null, "Tried to get area corners but Area is null");
-            var corners = this.Area.GetRectangleF().GetAreaCorners(Area.Rotation).ToArray();
+            var corners = this.Area.GetRectangleF().ToSystemDrawing().GetAreaCorners(Area.Rotation).ToArray();
             var min = new Vector2(
                 corners.Min(v => v.X),
                 corners.Min(v => v.Y)

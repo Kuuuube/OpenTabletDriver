@@ -130,7 +130,7 @@ namespace OpenTabletDriver.UX
                     : text);
 
         [Pure]
-        public static Corners GetAreaCorners(this RectangleF area, float rotation)
+        public static Corners GetAreaCorners(this System.Drawing.RectangleF area, float rotation)
         {
             var origin = new Vector2(area.X, area.Y);
             var matrix = Matrix3x2.CreateTranslation(-origin);
@@ -161,5 +161,8 @@ namespace OpenTabletDriver.UX
         {
             return [corners.TopLeft, corners.TopRight, corners.BottomLeft, corners.BottomRight];
         }
+
+        [Pure]
+        public static System.Drawing.RectangleF ToSystemDrawing(this Eto.Drawing.RectangleF etoRectangleF) => new System.Drawing.RectangleF(etoRectangleF.X, etoRectangleF.Y, etoRectangleF.Width, etoRectangleF.Height);
     }
 }

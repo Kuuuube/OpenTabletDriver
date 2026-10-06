@@ -247,7 +247,7 @@ namespace OpenTabletDriver.UX.Controls.Output.Area
             new SizeF(Area.Width, Area.Height)
         );
 
-        public float PixelScale => CalculateScale(FullAreaBounds ?? throw new InvalidOperationException($"Unable to look up pixel scale when {nameof(FullAreaBounds)} is unset"));
+        public float PixelScale => CalculateScale((FullAreaBounds ?? throw new InvalidOperationException($"Unable to look up pixel scale when {nameof(FullAreaBounds)} is unset")).ToSystemDrawing());
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
@@ -321,7 +321,7 @@ namespace OpenTabletDriver.UX.Controls.Output.Area
                     using (graphics.SaveTransformState())
                     {
                         var fullAreaBoundsVal = FullAreaBounds!.Value;
-                        float scale = CalculateScale(fullAreaBoundsVal);
+                        float scale = CalculateScale(fullAreaBoundsVal.ToSystemDrawing());
 
                         var clientCenter = new PointF(this.ClientSize.Width, this.ClientSize.Height) / 2;
                         var backgroundCenter = new PointF(fullAreaBoundsVal.Width, fullAreaBoundsVal.Height) / 2 * scale;
@@ -452,14 +452,14 @@ namespace OpenTabletDriver.UX.Controls.Output.Area
             textDrawer.DrawText(graphics, Font, TextBrush, offset, errorText);
         }
 
-        private float CalculateScale(RectangleF rect)
+        private float CalculateScale(System.Drawing.RectangleF rect)
         {
             if ((Area?.Rotation ?? 0) != 0)
             {
                 var corners = rect.GetAreaCorners(Area?.Rotation ?? 0);
                 var topLeft = new PointF(corners.ToArray().MinBy(x => x.X).X, corners.ToArray().MinBy(x => x.Y).Y);
                 var bottomRight = new PointF(corners.ToArray().MaxBy(x => x.X).X, corners.ToArray().MaxBy(x => x.Y).Y);
-                rect = new RectangleF(topLeft, bottomRight);
+                rect = new RectangleF(topLeft, bottomRight).ToSystemDrawing();
             }
 
             float scaleX = (this.ClientSize.Width - 2) / rect.Width;
