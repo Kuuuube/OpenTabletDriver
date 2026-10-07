@@ -132,6 +132,7 @@ namespace OpenTabletDriver.UX
         [Pure]
         public static Corners GetAreaCorners(this RectangleF area, float rotation)
         {
+            Debug.Assert(area is { X: >= 0, Y: >= 0 }, "un-normalized RectangleF is unsupported");
             var origin = new Vector2(area.X, area.Y);
             var matrix = Matrix3x2.CreateTranslation(-origin);
             matrix *= Matrix3x2.CreateRotation((float)(rotation * Math.PI / 180));
@@ -142,10 +143,10 @@ namespace OpenTabletDriver.UX
 
             return new Corners
             {
-                TopLeft = Vector2.Transform(new Vector2(area.X + halfWidth, area.Y + halfHeight), matrix),
+                TopLeft = Vector2.Transform(new Vector2(area.X - halfWidth, area.Y - halfHeight), matrix),
                 TopRight = Vector2.Transform(new Vector2(area.X + halfWidth, area.Y - halfHeight), matrix),
                 BottomLeft = Vector2.Transform(new Vector2(area.X - halfWidth, area.Y + halfHeight), matrix),
-                BottomRight = Vector2.Transform(new Vector2(area.X - halfWidth, area.Y - halfHeight), matrix),
+                BottomRight = Vector2.Transform(new Vector2(area.X + halfWidth, area.Y + halfHeight), matrix),
             };
         }
 
