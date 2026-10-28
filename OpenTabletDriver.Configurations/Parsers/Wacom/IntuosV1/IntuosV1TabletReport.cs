@@ -16,8 +16,8 @@ namespace OpenTabletDriver.Configurations.Parsers.Wacom.IntuosV1
             };
             Tilt = new Vector2
             {
-                X = (((report[7] << 1) & 0x7E) | (report[8] >> 7)) - 64,
-                Y = (report[8] & 0x7F) - 64
+                X = (sbyte)(((report[7] << 1) & 0x7E) | (report[8] >> 7)),
+                Y = (sbyte)report[8]
             };
             Pressure = (uint)((report[6] << 3) | ((report[7] & 0xC0) >> 5) | (report[1] & 1));
 
